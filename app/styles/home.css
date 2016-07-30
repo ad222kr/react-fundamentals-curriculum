@@ -1,0 +1,27 @@
+.home {
+  height: 100vh;
+  background-image: url("../images/pattern.svg");
+}
+
+h1 {
+  color: white;
+}
+
+.search-box {
+
+  width: 200px;
+  margin: 0 auto 15px auto;
+}
+
+.search-button {
+
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.weather-form {
+  margin-top: 200px;
+}

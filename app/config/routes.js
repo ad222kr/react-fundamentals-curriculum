@@ -1,12 +1,15 @@
 import React from "react";
-import ReactRouter, { Router, Route, hashHistory } from "react-router";
+import ReactRouter, { Router, Route, IndexRoute, hashHistory } from "react-router";
 
 import MainContainer from "../containers/MainContainer";
+import HomeContainer from "../containers/HomeContainer";
 
 const Routes = () => {
   return (
     <Router history={hashHistory}>
-      <Route path="/" component={MainContainer} />
+      <Route path="/" component={MainContainer}>
+        <IndexRoute component={HomeContainer} />
+      </Route>
     </Router>
   );
 };

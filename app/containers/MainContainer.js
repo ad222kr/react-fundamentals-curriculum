@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 
 const MainContainer = (props) => {
   return (
-    <div>
+    <div class="container-fluid main-container">
       {props.children}
     </div>
   );
