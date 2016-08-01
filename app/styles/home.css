@@ -10,7 +10,7 @@ h1 {
 .search-box {
 
   width: 200px;
-  margin: 0 auto 15px auto;
+  margin: 0 auto;
 }
 
 .search-button {
@@ -23,5 +23,4 @@ h1 {
 }
 
 .weather-form {
-  margin-top: 200px;
 }

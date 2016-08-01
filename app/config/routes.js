@@ -1,5 +1,5 @@
 import React from "react";
-import ReactRouter, { Router, Route, IndexRoute, hashHistory } from "react-router";
+import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
 import MainContainer from "../containers/MainContainer";
 import HomeContainer from "../containers/HomeContainer";
