@@ -13,7 +13,14 @@ class GetForecastsContainer extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+    const { city } = this.state;
+    const { router } = this.context;
+    this.setState({
+      city: ""
+    });
 
+    router.push(`/forecast/${city}`);
   }
 
   handleChange(e) {
@@ -41,6 +48,10 @@ GetForecastsContainer.propTypes = {
 
 GetForecastsContainer.defaultProps = {
   isRow: false,
+};
+
+GetForecastsContainer.contextTypes = {
+  router: PropTypes.object.isRequired,
 };
 
 export default GetForecastsContainer;

@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import GetForecastsContainer from "../containers/GetForecastsContainer";
 
 
-const MainContainer = (props) => {
+const MainContainer = ({ children }) => {
   return (
     <div class="container-fluid main-container">
       <div class="row">
@@ -12,7 +12,7 @@ const MainContainer = (props) => {
           <GetForecastsContainer isRow />
         </Header>
       </div>
-      {props.children}
+      {children}
     </div>
   );
 };
