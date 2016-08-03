@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from "react";
 import { getFiveDayForecast } from "../utils/api";
 import ForecastList from "../components/ForecastList";
+import ForecastStore from "../stores/ForecastStore";
+import * as ForecastActions from "../actions/ForecastActions";
 
 class ForecastContainer extends Component {
   constructor(props) {
@@ -10,38 +12,41 @@ class ForecastContainer extends Component {
       isLoading: true,
       forecasts: [],
     };
+
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  fetchData() {
+    const { city } = this.props.routeParams;
+    console.log(city);
+    console.log("Fetching data");
   }
 
   componentDidMount() {
     const { city } = this.props.routeParams;
-    getFiveDayForecast(city)
-      .then(response => {
-        const { list } = response.data;
-        this.setState({
-          isLoading: false,
-          forecasts: list,
-          city,
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    ForecastStore.addChangeListener(this.fetchData);
+    ForecastActions.requestForecast(city);
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+    ForecastStore.removeChangeListener(this.fetchData)
   }
 
   componentWillReceiveProps(nextProps) {
     const { city } = nextProps.routeParams;
-    getFiveDayForecast(city)
-      .then(response => {
-        const { list } = response.data;
-        this.setState({
-          isLoading: false,
-          forecasts: list,
-          city,
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    // getFiveDayForecast(city)
+    //   .then(response => {
+    //     const { list } = response.data;
+    //     this.setState({
+    //       isLoading: false,
+    //       forecasts: list,
+    //       city,
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   }
 
   handleClick(forecast) {
