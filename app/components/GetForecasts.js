@@ -6,8 +6,8 @@ const GetForecasts = ({ onSubmit, onChange, value, isRow }) => {
   const formClass = isRow ? "navbar-form navbar-right" : "form";
   return (
     <form onSubmit={onSubmit} class={formClass}>
-        <SearchBox onChange={onChange} value={value} />
-        <SearchButton />
+      <SearchBox onChange={onChange} value={value} />
+      <SearchButton />
     </form>
   )
 };

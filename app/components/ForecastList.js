@@ -5,14 +5,13 @@ import { getFormattedDate } from "../utils/helpers";
 
 const ForecastList = ({ isLoading, forecasts, city, onClick }) => {
   if (isLoading) return (<p>Loading</p>);
-
+  const { list } = forecasts;
   return (
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
-        <h3>Forecasts for {city}</h3>
+        <h3>Forecasts for {forecasts.city.name}</h3>
 
-        {forecasts.map(forecast => {
-          console.log(forecast);
+        {list.map(forecast => {
           return (
             <ForecastListItem
               forecast={forecast}
@@ -40,7 +39,7 @@ const ForecastListItem = ({ forecast, onClick }) => {
 
 ForecastList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  forecasts: PropTypes.array.isRequired,
+  forecasts: PropTypes.object.isRequired,
   city: PropTypes.string,
 };
 

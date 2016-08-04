@@ -10,6 +10,7 @@ class ForecastStore extends EventEmitter {
     this.forecasts = [];
   }
   emitChange() {
+    console.log("CHANGE_EVENT");
     this.emit(CHANGE_EVENT);
   }
 
@@ -21,18 +22,39 @@ class ForecastStore extends EventEmitter {
     this.removeListener(CHANGE_EVENT, callback);
   }
 
+  exists(city) {
+    const exists = this.forecasts.filter(forecast => {
+      return city === forecast.city.name;
+    }).length !== 0;
+    return exists;
+  }
+
+  get(city) {
+    console.log(this.forecasts);
+    return this.forecasts.filter(forecast => {
+      return city === forecast.city.name;
+    })[0];
+  }
+
   handleActions(action) {
     switch(action.type) {
       case ActionTypes.REQUEST_FORECAST_SUCCESS:
+
+        if (this.exists(action.response.data.city.name)) {
+          this.emitChange();
+          break;
+        }
+        const { data } = action.response;
+
+        this.forecasts.push(data);
         this.emitChange();
-        console.log("Request done");
-        console.log(action.response.data);
         break;
       case ActionTypes.REQUEST_FORECAST:
         console.log("Started request to openweathermap api..");
         break;
       case ActionTypes.REQUEST_FORECST_ERROR:
         console.log("Error on request to openweathermap api");
+        console.log(action.error);
         break
     }
   }

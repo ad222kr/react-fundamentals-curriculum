@@ -10,17 +10,13 @@ class ForecastContainer extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       isLoading: true,
-      forecasts: [],
+      forecasts: {},
     };
 
     this.fetchData = this.fetchData.bind(this);
   }
 
-  fetchData() {
-    const { city } = this.props.routeParams;
-    console.log(city);
-    console.log("Fetching data");
-  }
+
 
   componentDidMount() {
     const { city } = this.props.routeParams;
@@ -33,21 +29,37 @@ class ForecastContainer extends Component {
     ForecastStore.removeChangeListener(this.fetchData)
   }
 
+  fetchData() {
+    const { city } = this.props.routeParams;
+    const forecasts = ForecastStore.get(city);
+    this.setState({
+      isLoading: false,
+      forecasts,
+      city
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     const { city } = nextProps.routeParams;
-    // getFiveDayForecast(city)
-    //   .then(response => {
-    //     const { list } = response.data;
-    //     this.setState({
-    //       isLoading: false,
-    //       forecasts: list,
-    //       city,
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    ForecastActions.requestForecast(city);
+
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const { city } = nextProps.routeParams;
+  //   // getFiveDayForecast(city)
+  //   //   .then(response => {
+  //   //     const { list } = response.data;
+  //   //     this.setState({
+  //   //       isLoading: false,
+  //   //       forecasts: list,
+  //   //       city,
+  //   //     });
+  //   //   })
+  //   //   .catch(error => {
+  //   //     console.error(error);
+  //   //   });
+  // }
 
   handleClick(forecast) {
     const { router } = this.context;
